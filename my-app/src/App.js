@@ -1,34 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Smiley from './Smiley';
+import ShowResults from './ShowResults';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [smiles, setSmiles] = useState([
+    { name: '😄', count: 0 },
+    { name: '😊', count: 0 },
+    { name: '😃', count: 0 },
+  ]);
+
   return (
     <div className="app">
-      {/* Header */}
-      <header className="header">
-        <h1>Header</h1>
-      </header>
-
-      <div className="content">
-        {/* Left Sidebar */}
-        <aside className="sidebar">
-          <nav>
-            <ul>
-              <li>Home</li>
-              <li>Blog</li>
-              <li>Content</li>
-            </ul>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="main">
-          <h2>Conteiner centr</h2>
-          <p>Content</p>
-        </main>
+      <h1>Smiley Voting App</h1>
+      <div className="smiley-list">
+        {smiles.map((smile, index) => (
+          <Smiley key={index} name={smile.name} />
+        ))}
       </div>
+      <button className="show-results-button">Show Results</button>
+      <ShowResults smiles={smiles} />
     </div>
   );
-}
+};
 
 export default App;
