@@ -1,37 +1,31 @@
-import React, { useState } from 'react';
-import Todo from './Todo';
-import TodoForm from './TodoForm';
-import './App.css';
+import React, { Component } from 'react';
+import Contacts from './Contacts';
+import ContactForm from './ContactForm';
 
-const App = () => {
-  const [todos, setTodos] = useState([]);
-
-  const toggleTodo = (id) => {
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, completed: !todo.completed };
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
+class App extends Component {
+  state = {
+    showForm: false,
   };
 
-  const addTodo = (text) => {
-    const newTodo = { id: Date.now(), text, completed: false };
-    setTodos([...todos, newTodo]);
+  toggleForm = () => {
+    this.setState({ showForm: !this.state.showForm });
   };
 
-  return (
-    <div className="app">
-      <h1>Todo App</h1>
-      <div className="todo-list">
-        {todos.map((todo) => (
-          <Todo key={todo.id} todo={todo} toggleTodo={toggleTodo} />
-        ))}
+  render() {
+    return (
+      <div>
+        <h1>Контакти</h1>
+        <button onClick={this.toggleForm}>
+          {this.state.showForm ? 'Сховати форму' : 'Показати форму'}
+        </button>
+        {this.state.showForm ? (
+          <ContactForm cancel={this.toggleForm} />
+        ) : (
+          <Contacts />
+        )}
       </div>
-      <TodoForm addTodo={addTodo} />
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default App;
